@@ -41,15 +41,35 @@
 
 package net.semanticmetadata.lire.benchmarking;
 
-import net.semanticmetadata.lire.*;
-import net.semanticmetadata.lire.imageanalysis.*;
-import net.semanticmetadata.lire.imageanalysis.bovw.SiftFeatureHistogramBuilder;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import net.semanticmetadata.lire.DocumentBuilder;
+import net.semanticmetadata.lire.ImageSearchHits;
+import net.semanticmetadata.lire.ImageSearcher;
+import net.semanticmetadata.lire.ImageSearcherFactory;
+import net.semanticmetadata.lire.imageanalysis.CEDD;
+import net.semanticmetadata.lire.imageanalysis.FCTH;
+import net.semanticmetadata.lire.imageanalysis.JCD;
+import net.semanticmetadata.lire.imageanalysis.bovw.BriskFeatureHistogramBuilder;
+import net.semanticmetadata.lire.imageanalysis.bovw.FreakFeatureHistogramBuilder;
+import net.semanticmetadata.lire.imageanalysis.bovw.LocalFeatureHistogramBuilder;
 import net.semanticmetadata.lire.imageanalysis.bovw.SurfFeatureHistogramBuilder;
+import net.semanticmetadata.lire.impl.BriskDocumentBuilder;
 import net.semanticmetadata.lire.impl.ChainedDocumentBuilder;
-import net.semanticmetadata.lire.impl.GenericFastImageSearcher;
+import net.semanticmetadata.lire.impl.FreakDocumentBuilder;
 import net.semanticmetadata.lire.impl.ParallelImageSearcher;
+import net.semanticmetadata.lire.impl.SurfDocumentBuilder;
+import net.semanticmetadata.lire.impl.VisualWordsImageSearcher;
 import net.semanticmetadata.lire.indexing.parallel.ParallelIndexer;
 import net.semanticmetadata.lire.utils.LuceneUtils;
+
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -59,14 +79,6 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.MMapDirectory;
 import org.apache.lucene.util.Bits;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * ...
@@ -79,10 +91,10 @@ public class TestWang extends LireBenchmark {
     ParallelIndexer parallelIndexer;
     private String indexPath = "wang-index";
     // if you don't have the images you can get them here: http://wang.ist.psu.edu/docs/related.shtml
-    private String testExtensive = "./testdata/wang-1000";
-    private ChainedDocumentBuilder builder;
-    private int[] sampleQueries = {284, 77, 108, 416, 144, 534, 898, 104, 67, 10, 607, 165, 343, 973, 591, 659, 812, 231, 261, 224, 227, 914, 427, 810, 979, 716, 253, 708, 751, 269, 531, 699, 835, 370, 642, 504, 297, 970, 929, 20, 669, 434, 201, 9, 575, 631, 730, 7, 546, 816, 431, 235, 289, 111, 862, 184, 857, 624, 323, 393, 465, 905, 581, 626, 212, 459, 722, 322, 584, 540, 194, 704, 410, 267, 349, 371, 909, 403, 724, 573, 539, 812, 831, 600, 667, 672, 454, 873, 452, 48, 322, 424, 952, 277, 565, 388, 149, 966, 524, 36, 528, 75, 337, 655, 836, 698, 230, 259, 897, 652, 590, 757, 673, 937, 676, 650, 297, 434, 358, 789, 484, 975, 318, 12, 506, 38, 979, 732, 957, 904, 852, 635, 620, 28, 59, 732, 84, 788, 562, 913, 173, 508, 32, 16, 882, 847, 320, 185, 268, 230, 259, 931, 653, 968, 838, 906, 596, 140, 880, 847, 297, 77, 983, 536, 494, 530, 870, 922, 467, 186, 254, 727, 439, 241, 12, 947, 561, 160, 740, 705, 619, 571, 745, 774, 845, 507, 156, 936, 473, 830, 88, 66, 204, 737, 770, 445, 358, 707, 95, 349};
-
+    private String imageDir = "./testdata/wang-1000";
+    //private int[] sampleQueries = {284, 77, 108, 416, 144, 534, 898, 104, 67, 10, 607, 165, 343, 973, 591, 659, 812, 231, 261, 224, 227, 914, 427, 810, 979, 716, 253, 708, 751, 269, 531, 699, 835, 370, 642, 504, 297, 970, 929, 20, 669, 434, 201, 9, 575, 631, 730, 7, 546, 816, 431, 235, 289, 111, 862, 184, 857, 624, 323, 393, 465, 905, 581, 626, 212, 459, 722, 322, 584, 540, 194, 704, 410, 267, 349, 371, 909, 403, 724, 573, 539, 812, 831, 600, 667, 672, 454, 873, 452, 48, 322, 424, 952, 277, 565, 388, 149, 966, 524, 36, 528, 75, 337, 655, 836, 698, 230, 259, 897, 652, 590, 757, 673, 937, 676, 650, 297, 434, 358, 789, 484, 975, 318, 12, 506, 38, 979, 732, 957, 904, 852, 635, 620, 28, 59, 732, 84, 788, 562, 913, 173, 508, 32, 16, 882, 847, 320, 185, 268, 230, 259, 931, 653, 968, 838, 906, 596, 140, 880, 847, 297, 77, 983, 536, 494, 530, 870, 922, 467, 186, 254, 727, 439, 241, 12, 947, 561, 160, 740, 705, 619, 571, 745, 774, 845, 507, 156, 936, 473, 830, 88, 66, 204, 737, 770, 445, 358, 707, 95, 349};
+    private int[] sampleQueries;
+    
     public void testGenQueries() {
 
     }
@@ -94,24 +106,26 @@ public class TestWang extends LireBenchmark {
         for (int i = 0; i < sampleQueries.length; i++) {
             sampleQueries[i] = i;
         }
-        indexPath += "-" + System.currentTimeMillis() % (1000 * 60 * 60 * 24 * 7);
+        if (!new File(indexPath).exists())
+            indexPath += "-" + System.currentTimeMillis() % (1000 * 60 * 60 * 24 * 7);
         // Setting up DocumentBuilder:
 //        parallelIndexer = new ParallelIndexer(8, indexPath, testExtensive);
-        parallelIndexer = new ParallelIndexer(8, indexPath, testExtensive, true) {
+        parallelIndexer = new ParallelIndexer(8, indexPath, imageDir, true) {
             @Override
             public void addBuilders(ChainedDocumentBuilder builder) {
-//                builder.addBuilder(DocumentBuilderFactory.getCEDDDocumentBuilder());
-//                builder.addBuilder(DocumentBuilderFactory.getAutoColorCorrelogramDocumentBuilder());
+                /*
+                builder.addBuilder(DocumentBuilderFactory.getCEDDDocumentBuilder());
+                builder.addBuilder(DocumentBuilderFactory.getAutoColorCorrelogramDocumentBuilder());
                 builder.addBuilder(DocumentBuilderFactory.getColorLayoutBuilder());
                 builder.addBuilder(DocumentBuilderFactory.getEdgeHistogramBuilder());
-//                builder.addBuilder(DocumentBuilderFactory.getFCTHDocumentBuilder());
+                builder.addBuilder(DocumentBuilderFactory.getFCTHDocumentBuilder());
                 builder.addBuilder(DocumentBuilderFactory.getJCDDocumentBuilder());
-//                builder.addBuilder(DocumentBuilderFactory.getJointHistogramDocumentBuilder());
+                builder.addBuilder(DocumentBuilderFactory.getJointHistogramDocumentBuilder());
                 builder.addBuilder(DocumentBuilderFactory.getOpponentHistogramDocumentBuilder());
                 builder.addBuilder(DocumentBuilderFactory.getPHOGDocumentBuilder());
-//                builder.addBuilder(DocumentBuilderFactory.getColorHistogramDocumentBuilder());
+                builder.addBuilder(DocumentBuilderFactory.getColorHistogramDocumentBuilder());
                 builder.addBuilder(DocumentBuilderFactory.getScalableColorBuilder());
-
+                */
 //               builder.addBuilder(DocumentBuilderFactory.getLuminanceLayoutDocumentBuilder());
 //               builder.addBuilder(DocumentBuilderFactory.getJpegCoefficientHistogramDocumentBuilder());
 //               builder.addBuilder(DocumentBuilderFactory.getColorHistogramDocumentBuilder());
@@ -120,9 +134,11 @@ public class TestWang extends LireBenchmark {
 //               builder.addBuilder(DocumentBuilderFactory.getScalableColorBuilder());
 //               builder.addBuilder(new GenericDocumentBuilder(RankAndOpponent.class, "jop"));
 //               builder.addBuilder(new GenericFastDocumentBuilder(FuzzyOpponentHistogram.class, "opHist"));
-//               builder.addBuilder(new SurfDocumentBuilder());
+                builder.addBuilder(new SurfDocumentBuilder());
 //               builder.addBuilder(new MSERDocumentBuilder());
 //               builder.addBuilder(new SiftDocumentBuilder());
+                builder.addBuilder(new BriskDocumentBuilder());
+                builder.addBuilder(new FreakDocumentBuilder());
 
 //                builder.addBuilder(new GenericDocumentBuilder(SPCEDD.class, "spcedd"));
 //                builder.addBuilder(new GenericDocumentBuilder(SPFCTH.class, "spfcth"));
@@ -168,7 +184,7 @@ public class TestWang extends LireBenchmark {
         // testMAP();
     }
 
-    public void testProgram() throws IOException {
+    public void testIndexBovw() throws IOException {
 //        for (int i = 50; i<200; i+=20)
 //            doParams(i, 100);
 
@@ -178,20 +194,23 @@ public class TestWang extends LireBenchmark {
 //        for (int i = 1000; i<20001; i+=1000)
 //            doParams(10000, i);
 
-        doParams(1000, 1000);
+        indexBovw(1000, 1000);
 
     }
 
-    public void doParams(int numDocs, int numClusters) throws IOException {
-        SiftFeatureHistogramBuilder sh1 = new SiftFeatureHistogramBuilder(IndexReader.open(FSDirectory.open(new File(indexPath))), numDocs, numClusters);
-        sh1.index();
-        SurfFeatureHistogramBuilder sh = new SurfFeatureHistogramBuilder(IndexReader.open(FSDirectory.open(new File(indexPath))), numDocs, numClusters);
-        sh.index();
-        System.out.println("*******************************************");
-        System.out.println("SiftFeatureHistogramBuilder sh1 = new SiftFeatureHistogramBuilder(IndexReader.open(FSDirectory.open(new File(indexPath))), " + numDocs + ", " + numClusters + ");");
-//        computeMAP(new SurfVisualWordsImageSearcher(1000), "Surf BoVW");
-//        computeMAP(new SiftVisualWordsImageSearcher(1000), "Sift BoVW");
-        System.out.println("*******************************************");
+    private void indexBovw(int numDocs, int numClusters) throws IOException {
+        LocalFeatureHistogramBuilder lfb;
+        // lfb = new SiftFeatureHistogramBuilder(IndexReader.open(FSDirectory.open(new File(indexPath))), numDocs, numClusters);
+        //lfb.index();
+        System.out.println("*** Building SURF BoVW histograms");
+        lfb = new SurfFeatureHistogramBuilder(IndexReader.open(FSDirectory.open(new File(indexPath))), numDocs, numClusters);
+        lfb.index();
+        System.out.println("*** Building BRISK BoVW histograms");
+        lfb = new BriskFeatureHistogramBuilder(IndexReader.open(FSDirectory.open(new File(indexPath))), numDocs, numClusters);
+        lfb.index();
+        System.out.println("*** Building FREAK BoVW histograms");
+        lfb = new FreakFeatureHistogramBuilder(IndexReader.open(FSDirectory.open(new File(indexPath))), numDocs, numClusters);
+        lfb.index();
     }
 
     private void indexFiles(ArrayList<String> images, DocumentBuilder builder, String indexPath) throws IOException {
@@ -228,16 +247,16 @@ public class TestWang extends LireBenchmark {
 //        SimpleColorHistogram.DEFAULT_DISTANCE_FUNCTION = SimpleColorHistogram.DistanceFunction.JSD;
 //        computeMAP(ImageSearcherFactory.createColorHistogramImageSearcher(1000), "Color Histogram - JSD");
 //        SimpleColorHistogram.DEFAULT_DISTANCE_FUNCTION = SimpleColorHistogram.DistanceFunction.TANIMOTO;
-
-//        computeMAP(new GenericFastImageSearcher(1000, CEDD.class), "CEDD", reader);
-//        computeMAP(new GenericFastImageSearcher(1000, AutoColorCorrelogram.class, true, reader), "Color Correlogram", reader);
+/*
+        computeMAP(new GenericFastImageSearcher(1000, CEDD.class), "CEDD", reader);
+        computeMAP(new GenericFastImageSearcher(1000, AutoColorCorrelogram.class, true, reader), "Color Correlogram", reader);
         computeMAP(new GenericFastImageSearcher(1000, ColorLayout.class, true, reader), "Color Layout", reader);
         computeMAP(new GenericFastImageSearcher(1000, EdgeHistogram.class, true, reader), "Edge Histogram", reader);
-//        computeMAP(new GenericFastImageSearcher(1000, FCTH.class, true, reader), "FCTH", reader);
+        computeMAP(new GenericFastImageSearcher(1000, FCTH.class, true, reader), "FCTH", reader);
         computeMAP(new GenericFastImageSearcher(1000, JCD.class, true, reader), "JCD", reader);
         computeMAP(new GenericFastImageSearcher(1000, OpponentHistogram.class, true, reader), "OpponentHistogram", reader);
         computeMAP(new GenericFastImageSearcher(1000, PHOG.class, DocumentBuilder.FIELD_NAME_PHOG, true, reader), "PHOG", reader);
-//        computeMAP(new GenericFastImageSearcher(1000, SimpleColorHistogram.class, true, reader), "RGB Color Histogram", reader);
+        computeMAP(new GenericFastImageSearcher(1000, SimpleColorHistogram.class, true, reader), "RGB Color Histogram", reader);
         computeMAP(new GenericFastImageSearcher(1000, ScalableColor.class, true, reader), "Scalable Color", reader);
 
 //        computeMAP(ImageSearcherFactory.createTamuraImageSearcher(1000), "Tamura");
@@ -245,18 +264,21 @@ public class TestWang extends LireBenchmark {
 //        computeMAP(ImageSearcherFactory.createLuminanceLayoutImageSearcher(1000), "LumLay");
 //        computeMAP(new GenericFastImageSearcher(1000, FuzzyOpponentHistogram.class, "opHist"), "Joint Opponent Histogram - JSD");
 //        computeMAP(new GenericFastImageSearcher(1000, RankAndOpponent.class, "jop"), "JointOp Hist");
-//        computeMAP(new GenericFastImageSearcher(1000, SPCEDD.class, true, reader), "SPCEDD", reader);
-//        computeMAP(new GenericFastImageSearcher(1000, SPFCTH.class, true, reader), "SPFCTH", reader);
-//        computeMAP(new GenericFastImageSearcher(1000, SPJCD.class, true, reader), "SPJCD", reader);
-//        computeMAP(new GenericFastImageSearcher(1000, SPACC.class, true, reader), "SPACC", reader);
-//        computeMAP(new GenericFastImageSearcher(1000, BinaryPatternsPyramid.class, true, reader), "whog", reader);
-//        computeMAP(new GenericFastImageSearcher(1000, LocalBinaryPatternsAndOpponent.class, true, reader), "jhl", reader);
+        computeMAP(new GenericFastImageSearcher(1000, SPCEDD.class, true, reader), "SPCEDD", reader);
+        computeMAP(new GenericFastImageSearcher(1000, SPFCTH.class, true, reader), "SPFCTH", reader);
+        computeMAP(new GenericFastImageSearcher(1000, SPJCD.class, true, reader), "SPJCD", reader);
+        computeMAP(new GenericFastImageSearcher(1000, SPACC.class, true, reader), "SPACC", reader);
+        computeMAP(new GenericFastImageSearcher(1000, BinaryPatternsPyramid.class, true, reader), "whog", reader);
+        computeMAP(new GenericFastImageSearcher(1000, LocalBinaryPatternsAndOpponent.class, true, reader), "jhl", reader);
 //        computeMAP(new GenericFastImageSearcher(1000, RotationInvariantLocalBinaryPatterns.class, "rlbp"), "RILBP");
 //        computeMAP(new GenericFastImageSearcher(1000, SPLBP.class, "splbp"), "SPLBP");
 //        computeMAP(ImageSearcherFactory.createJpegCoefficientHistogramImageSearcher(1000), "JPEG Coeffs");
+*/
 //        computeMAP(new VisualWordsImageSearcher(1000, DocumentBuilder.FIELD_NAME_SURF_VISUAL_WORDS), "SURF BoVW", reader);
 //        computeMAP(new VisualWordsImageSearcher(1000, DocumentBuilder.FIELD_NAME_MSER_LOCAL_FEATURE_HISTOGRAM_VISUAL_WORDS), "MSER BoVW");
 //        computeMAP(new VisualWordsImageSearcher(1000, DocumentBuilder.FIELD_NAME_SIFT_VISUAL_WORDS), "SIFT BoVW");
+//        computeMAP(new VisualWordsImageSearcher(1000, DocumentBuilder.FIELD_NAME_BRISK_VISUAL_WORDS), "BRISK BoVW", reader);
+        computeMAP(new VisualWordsImageSearcher(1000, DocumentBuilder.FIELD_NAME_FREAK_VISUAL_WORDS), "FREAK BoVW", reader);
 
     }
 
@@ -271,13 +293,9 @@ public class TestWang extends LireBenchmark {
             pr10cat[i] = 0d;
             pr10cnt[i] = 0d;
         }
-        long sum=0, ms=0;
         for (int i = 0; i < sampleQueries.length; i++) {
             int id = sampleQueries[i];
-            String file = testExtensive + "/" + id + ".jpg";
-            ms = System.currentTimeMillis();
             ImageSearchHits hits = searcher.search(findDoc(reader, id + ".jpg"), reader);
-            sum += (System.currentTimeMillis()-ms);
             int goodOnes = 0;
             double avgPrecision = 0d;
             double precision10temp = 0d;
@@ -335,7 +353,6 @@ public class TestWang extends LireBenchmark {
             System.out.printf("%.5f\t", v);
 
         }
-        System.out.printf("%2.3f\t", (double) sum / (double) sampleQueries.length);
         System.out.println();
     }
 
@@ -351,7 +368,7 @@ public class TestWang extends LireBenchmark {
         for (int i = 0; i < sampleQueries.length; i++) {
             int id = sampleQueries[i];
 //            System.out.println("id = " + id + ": " + "("+i+")");
-            String file = testExtensive + "/" + id + ".jpg";
+            String file = imageDir + "/" + id + ".jpg";
             String[] files = {id + ".jpg", (id + 1) + ".jpg", (id + 2) + ".jpg", (id + 3) + ".jpg", (id + 4) + ".jpg"};
             ImageSearchHits[] hits = searcher.search(findDocs(reader, files), reader);
             for (int k = 0; k < hits.length; k++) {
@@ -409,7 +426,7 @@ public class TestWang extends LireBenchmark {
         for (int i = 0; i < sampleQueries.length; i++) {
             int id = sampleQueries[i];
             System.out.print("id = " + id + ": ");
-            String file = testExtensive + "/" + id + ".jpg";
+            String file = imageDir + "/" + id + ".jpg";
 
             ImageSearchHits hits = searcher.search(findDoc(reader, id + ".jpg"), reader);
             int goodOnes = 0;
