@@ -4,3 +4,5 @@ jdk:
   - openjdk6
   - oraclejdk7
   - oraclejdk6
+script:
+  ant package
