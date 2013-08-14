@@ -36,10 +36,8 @@
  * (c) 2002-2013 by Mathias Lux (mathias@juggle.at)
  *     http://www.semanticmetadata.net/lire, http://www.lire-project.net
  */
-
 package net.semanticmetadata.lire;
 
-import junit.framework.TestCase;
 import net.semanticmetadata.lire.imageanalysis.CEDD;
 import net.semanticmetadata.lire.imageanalysis.SimpleColorHistogram;
 import net.semanticmetadata.lire.utils.FileUtils;
@@ -57,7 +55,7 @@ import java.util.Iterator;
  * @author Mathias Lux, mathias@juggle.at
  *         Created: 04.05.12, 10:00
  */
-public class ArffGeneratorTest extends TestCase {
+public class ArffGeneratorTest extends LireTestCase {
     public void testGenFile() throws IOException {
         ArrayList<File> images = FileUtils.getAllImageFiles(new File("W:\\Forschung\\Intention_Test_Data\\data\\images"), true);
         // print header

@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.utils;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 
 import javax.imageio.ImageIO;
 import java.awt.color.ColorSpace;
@@ -56,7 +56,7 @@ import java.util.Iterator;
 /**
  * @author Mathias Lux, mathias@juggle.at, 04.04.13, 09:30
  */
-public class ImageUtilsTest extends TestCase {
+public class ImageUtilsTest extends LireTestCase {
     public void testCheckOpen() throws IOException {
         ArrayList<File> allImageFiles = FileUtils.getAllImageFiles(new File("D:\\DataSets\\Yahoo-GC\\test"), true);
         System.out.println("Checking " + allImageFiles.size() + " files for compatibility.");

@@ -39,14 +39,14 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 
 /**
  * User: mlux
  * Date: 09.10.12
  * Time: 11:50
  */
-public class FuzzyColorTest extends TestCase {
+public class FuzzyColorTest extends LireTestCase {
 
     public void testFuzziness() {
         int[] pixel = new int[]{40, 120, 230};

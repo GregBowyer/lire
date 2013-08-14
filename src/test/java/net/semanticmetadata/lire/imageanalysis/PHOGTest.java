@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.utils.FileUtils;
 
 import javax.imageio.ImageIO;
@@ -56,7 +56,7 @@ import java.util.Iterator;
  * Test class for PHOG descriptor.
  * @author Mathias Lux, mathias@juggle.at, 05.04.13
  */
-public class PHOGTest extends TestCase {
+public class PHOGTest extends LireTestCase {
     public void testExtraction() throws IOException {
         BufferedImage img = ImageIO.read(new File("munch.jpg"));
 //        BufferedImage img = ImageIO.read(new File("test.jpg"));

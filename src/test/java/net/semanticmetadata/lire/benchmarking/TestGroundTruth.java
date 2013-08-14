@@ -41,7 +41,6 @@
 
 package net.semanticmetadata.lire.benchmarking;
 
-import junit.framework.TestCase;
 import net.semanticmetadata.lire.DocumentBuilder;
 import net.semanticmetadata.lire.ImageSearchHits;
 import net.semanticmetadata.lire.ImageSearcher;
@@ -80,7 +79,7 @@ import java.util.LinkedList;
  * @author Mathias Lux, mathias@juggle.at, 24.04.13
  */
 
-public class TestGroundTruth extends TestCase {
+public class TestGroundTruth extends LireBenchmark {
     public String indexPath = "test-idx-large-hashed";
     private File fileList;
     private String path = "E:\\Eval-WIPO\\";

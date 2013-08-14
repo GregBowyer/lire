@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.filter.LsaFilter;
 import net.semanticmetadata.lire.filter.RerankFilter;
 import net.semanticmetadata.lire.imageanalysis.*;
@@ -69,7 +69,7 @@ import java.util.Iterator;
  * Date: 29.11.12
  * Time: 13:53
  */
-public class GeneralTest extends TestCase {
+public class GeneralTest extends LireTestCase {
     private String[] testFiles = new String[]{
             "img01.JPG", "img02.JPG", "img03.JPG", "img04.JPG", "img05.JPG",
             "img06.JPG", "img07.JPG", "img08.JPG", "error.jpg"};

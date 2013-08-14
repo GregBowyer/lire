@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.indexing;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.DocumentBuilder;
 import net.semanticmetadata.lire.imageanalysis.bovw.SurfFeatureHistogramBuilder;
 import net.semanticmetadata.lire.impl.ChainedDocumentBuilder;
@@ -64,7 +64,7 @@ import java.util.List;
  * Date: 03.05.2011
  * Time: 10:28:16
  */
-public class IndexVisualWordsTest extends TestCase {
+public class IndexVisualWordsTest extends LireTestCase {
     String directory = "./imageCLEF2011"; // Where are the photos?
     String index = "./imageClefIndex"; // Where is the index?
     int clusters = 2000; // number of visual words

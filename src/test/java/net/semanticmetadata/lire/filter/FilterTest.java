@@ -39,7 +39,6 @@
 
 package net.semanticmetadata.lire.filter;
 
-import junit.framework.TestCase;
 import net.semanticmetadata.lire.*;
 import net.semanticmetadata.lire.imageanalysis.CEDD;
 import net.semanticmetadata.lire.imageanalysis.ColorLayout;
@@ -67,7 +66,7 @@ import java.util.Iterator;
  * @author Mathias Lux, mathias@juggle.at
  * @author sangupta, sandy.pec@gmail.com (fixed deprecation)
  */
-public class FilterTest extends TestCase {
+public class FilterTest extends LireTestCase {
 
     private String indexPath = "test-filters";
 

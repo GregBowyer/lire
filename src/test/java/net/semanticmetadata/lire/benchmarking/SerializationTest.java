@@ -39,10 +39,10 @@
 
 package net.semanticmetadata.lire.benchmarking;
 
-import junit.framework.TestCase;
-
 import java.io.*;
 import java.util.StringTokenizer;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by IntelliJ IDEA.
@@ -50,7 +50,7 @@ import java.util.StringTokenizer;
  * Date: 12.03.2010
  * Time: 12:10:38
  */
-public class SerializationTest extends TestCase {
+public class SerializationTest extends LireBenchmark {
 
     public void testPerformance() throws IOException {
         double[] array = new double[128];

@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.impl.MSERDocumentBuilder;
 import org.apache.lucene.document.Document;
 
@@ -54,7 +54,7 @@ import java.io.IOException;
  * Time: 10:42:00
  * To change this template use File | Settings | File Templates.
  */
-public class MSERTest extends TestCase {
+public class MSERTest extends LireTestCase {
     public void testMSERExtraction() throws IOException {
         MSERDocumentBuilder db = new MSERDocumentBuilder();
         String file = "./wang-1000/199.jpg";

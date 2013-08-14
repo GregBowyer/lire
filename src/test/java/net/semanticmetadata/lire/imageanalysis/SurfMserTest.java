@@ -41,7 +41,7 @@ package net.semanticmetadata.lire.imageanalysis;
 
 import com.stromberglabs.jopensurf.SURFInterestPoint;
 import com.stromberglabs.jopensurf.Surf;
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;
@@ -54,7 +54,7 @@ import java.util.List;
  *         Date: 04.10.2010
  *         Time: 13:21:55
  */
-public class SurfMserTest extends TestCase {
+public class SurfMserTest extends LireTestCase {
 
     public void testExtract() throws IOException {
         Surf sm = new Surf(ImageIO.read(new FileInputStream("wang-1000/0.jpg")));

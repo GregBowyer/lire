@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.utils.FileUtils;
 
 import javax.imageio.ImageIO;
@@ -57,7 +57,7 @@ import java.util.Iterator;
  *
  * @author Mathias Lux, mathias@juggle.at, 06.04.13
  */
-public class LuminanceLayoutTest extends TestCase {
+public class LuminanceLayoutTest extends LireTestCase {
     public void testExtraction() throws IOException {
         ArrayList<File> files = FileUtils.getAllImageFiles(new File("testdata/ferrari"), true);
         for (Iterator<File> iterator = files.iterator(); iterator.hasNext(); ) {

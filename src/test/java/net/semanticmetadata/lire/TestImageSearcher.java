@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.impl.ChainedDocumentBuilder;
 import net.semanticmetadata.lire.impl.VisualWordsImageSearcher;
 import org.apache.lucene.document.Document;
@@ -58,7 +58,7 @@ import java.io.*;
  *
  * @author Mathias Lux, mathias@juggle.at
  */
-public class TestImageSearcher extends TestCase {
+public class TestImageSearcher extends LireTestCase {
     private String[] testFiles = new String[]{"img01.JPG", "img02.JPG", "img03.JPG", "img04.JPG", "img05.JPG",
             "img06.JPG", "img07.JPG", "img08.JPG", "img08a.JPG"};
     private String testFilesPath = "src/test/resources/images/";

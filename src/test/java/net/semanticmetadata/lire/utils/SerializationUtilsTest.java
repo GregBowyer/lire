@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.utils;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.clustering.Cluster;
 
 import java.io.IOException;
@@ -49,7 +49,7 @@ import java.io.IOException;
  * Time: 12:45:27
  * Mathias Lux, mathias@juggle.at
  */
-public class SerializationUtilsTest extends TestCase {
+public class SerializationUtilsTest extends LireTestCase {
 
     /**
      * Test some basic serialization routines ...

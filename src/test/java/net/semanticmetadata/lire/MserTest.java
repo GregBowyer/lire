@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.imageanalysis.mser.MSER;
 import net.semanticmetadata.lire.imageanalysis.mser.MSERFeature;
 import net.semanticmetadata.lire.impl.ChainedDocumentBuilder;
@@ -70,7 +70,7 @@ import java.util.List;
  * Date: 07.02.13
  * Time: 13:19
  */
-public class MserTest extends TestCase {
+public class MserTest extends LireTestCase {
     private String[] testFiles = new String[]{
             "img01.JPG", "img02.JPG", "img03.JPG", "img04.JPG", "img05.JPG",
             "img06.JPG", "img07.JPG", "img08.JPG", "error.jpg"};

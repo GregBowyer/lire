@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.impl.ChainedDocumentBuilder;
 import net.semanticmetadata.lire.utils.FileUtils;
 import net.semanticmetadata.lire.utils.LuceneUtils;
@@ -63,7 +63,7 @@ import java.util.ArrayList;
  *
  * @author Mathias Lux, mathias@juggle.at
  */
-public class RuntimeTest extends TestCase {
+public class RuntimeTest extends LireTestCase {
     private String[] testFiles = new String[]{"img01.JPG", "img02.JPG", "img03.JPG", "img04.JPG", "img05.JPG",
             "img06.JPG", "img07.JPG", "img08.JPG", "img08a.JPG", "error.jpg", "P�ginas de 060305_b_P�gina_1_Imagem_0004_P�gina_08_Imagem_0002.jpg"};
     private String testFilesPath = "./lire/src/test/resources/images/";

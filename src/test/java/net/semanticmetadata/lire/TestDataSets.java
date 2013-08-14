@@ -39,7 +39,15 @@
 package net.semanticmetadata.lire;
 
 /**
+ * There are a lot of test images that become present within the lire test suite
+ * some of these are provided with lire, whilst others may be found on the internet
+ * at various locations.
+ *
+ * To make the test suite easier to manage and more flexible the following methods
+ * provide functions to enable easier access to test images
+ *
  * @author Greg Bowyer
  */
 public class TestDataSets {
+
 }

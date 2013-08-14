@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.imageanalysis.bovw.SiftFeatureHistogramBuilder;
 import net.semanticmetadata.lire.imageanalysis.bovw.SurfFeatureHistogramBuilder;
 import net.semanticmetadata.lire.impl.ChainedDocumentBuilder;
@@ -70,7 +70,7 @@ import java.util.Iterator;
  * Date: 23.07.12
  * Time: 14:49
  */
-public class VisualWordsTest extends TestCase {
+public class VisualWordsTest extends LireTestCase {
     private static File indexPath;
     String queryImage = "testdata/flickr-10000/3544790945_38c07af051_o.jpg";
     private DocumentBuilder surfBuilder, siftBuilder;

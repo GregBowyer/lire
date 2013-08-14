@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.lucene;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.DocumentBuilder;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -58,7 +58,7 @@ import java.io.IOException;
  * Date: 06.03.13
  * Time: 16:27
  */
-public class TestSearchID extends TestCase {
+public class TestSearchID extends LireTestCase {
     private String indexPath = "test-index";
 
     public void testSearch() throws IOException {

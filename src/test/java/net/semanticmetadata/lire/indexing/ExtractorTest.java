@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.indexing;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.imageanalysis.CEDD;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import net.semanticmetadata.lire.indexing.tools.Extractor;
@@ -59,7 +59,7 @@ import java.util.zip.GZIPInputStream;
  * Date: 12.03.13
  * Time: 13:21
  */
-public class ExtractorTest extends TestCase {
+public class ExtractorTest extends LireTestCase {
     public void testExtraction() {
         Extractor e = new Extractor();
         e.setFileList(new File("imageList.txt"));

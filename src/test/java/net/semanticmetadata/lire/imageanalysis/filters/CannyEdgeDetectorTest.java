@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.imageanalysis.filters;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -53,7 +53,7 @@ import java.io.IOException;
  *
  * @author Mathias Lux, mathias@juggle.at, 07.04.13
  */
-public class CannyEdgeDetectorTest extends TestCase {
+public class CannyEdgeDetectorTest extends LireTestCase {
     public void testCanny() throws IOException {
         BufferedImage in = ImageIO.read(new File("flower.jpg"));
         CannyEdgeDetector ced = new CannyEdgeDetector(in, 40, 100);

@@ -42,7 +42,6 @@ package net.semanticmetadata.lire.benchmarking;
 //import Jama.Matrix;
 //import Jama.SingularValueDecomposition;
 
-import junit.framework.TestCase;
 import net.semanticmetadata.lire.*;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import net.semanticmetadata.lire.impl.ChainedDocumentBuilder;
@@ -70,7 +69,7 @@ import java.util.Iterator;
  * Date: 25.11.2009
  * Time: 11:54:49
  */
-public class TestGeneral extends TestCase {
+public class TestGeneral extends LireBenchmark {
     // check if this directory exists!!
     public String testIndex = "./temp/generaltestindex";
     //    public String testFiles = "C:\\Temp\\...\\images\\indexsrc\\default\\original";

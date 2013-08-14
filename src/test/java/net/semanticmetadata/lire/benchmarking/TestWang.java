@@ -41,7 +41,6 @@
 
 package net.semanticmetadata.lire.benchmarking;
 
-import junit.framework.TestCase;
 import net.semanticmetadata.lire.*;
 import net.semanticmetadata.lire.imageanalysis.*;
 import net.semanticmetadata.lire.imageanalysis.bovw.SiftFeatureHistogramBuilder;
@@ -66,6 +65,9 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 /**
  * ...
  * Date: 18.09.2008
@@ -73,7 +75,7 @@ import java.util.regex.Pattern;
  *
  * @author Mathias Lux, mathias@juggle.at
  */
-public class TestWang extends TestCase {
+public class TestWang extends LireBenchmark {
     ParallelIndexer parallelIndexer;
     private String indexPath = "wang-index";
     // if you don't have the images you can get them here: http://wang.ist.psu.edu/docs/related.shtml

@@ -41,7 +41,6 @@
 
 package net.semanticmetadata.lire.benchmarking;
 
-import junit.framework.TestCase;
 import net.semanticmetadata.lire.*;
 import net.semanticmetadata.lire.imageanalysis.*;
 import net.semanticmetadata.lire.imageanalysis.joint.JointHistogram;
@@ -77,7 +76,7 @@ import java.util.*;
  * Date: 14.05.13
  * Time: 10:56
  */
-public class TestUCID extends TestCase {
+public class TestUCID extends LireBenchmark {
     private String indexPath = "ucid-index";
     // if you don't have the images you can get them here: http://homepages.lboro.ac.uk/~cogs/datasets/ucid/ucid.html
     // I converted all images to PNG (lossless) to save time, space & troubles with Java.

@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -48,7 +48,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class GaborTest extends TestCase {
+public class GaborTest extends LireTestCase {
     private String[] testFiles = new String[]{"img01.jpg", "img02.jpg", "img03.jpg", "img04.jpg", "img05.jpg", "img06.jpg", "img07.jpg", "img08.jpg", "img09.jpg", "img10.jpg"};
     private String testFilesPath = "./lire/src/test/resources/small/";
 

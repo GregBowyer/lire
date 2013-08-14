@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.imageanalysis.visualattention.StentifordModel;
 
 import javax.imageio.ImageIO;
@@ -55,7 +55,7 @@ import java.io.IOException;
  * Date: 22.03.2010
  * Time: 16:36:57
  */
-public class AttentionModelTest extends TestCase {
+public class AttentionModelTest extends LireTestCase {
     public void testExtraction() throws IOException {
         StentifordModel sm = new StentifordModel();
         // sm.extract(ImageIO.read(new File("wang-1000/103.jpg")));

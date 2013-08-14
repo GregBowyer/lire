@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.utils.FileUtils;
 
 import javax.imageio.ImageIO;
@@ -52,7 +52,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class EdgeHistogramTest extends TestCase {
+public class EdgeHistogramTest extends LireTestCase {
 
     public void testSingleFile() throws IOException {
         EdgeHistogram e = new EdgeHistogram();

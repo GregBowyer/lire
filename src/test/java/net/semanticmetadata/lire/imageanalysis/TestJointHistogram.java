@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.imageanalysis.joint.JointHistogram;
 
 import javax.imageio.ImageIO;
@@ -55,7 +55,7 @@ import java.util.Arrays;
  * Date: 04.12.12
  * Time: 11:01
  */
-public class TestJointHistogram extends TestCase {
+public class TestJointHistogram extends LireTestCase {
     public void testExtract() throws IOException {
         BufferedImage img = ImageIO.read(new FileInputStream("C:\\Java\\Projects\\LireSVN\\testdata\\ferrari\\black\\2828686873_2fa36f83d7_b.jpg"));
         JointHistogram jh = new JointHistogram();

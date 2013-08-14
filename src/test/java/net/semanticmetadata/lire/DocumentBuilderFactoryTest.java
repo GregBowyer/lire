@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import org.apache.lucene.document.Document;
 
 import java.io.FileInputStream;
@@ -52,7 +52,7 @@ import java.io.IOException;
  *
  * @author Mathias Lux, mathias@juggle.at
  */
-public class DocumentBuilderFactoryTest extends TestCase {
+public class DocumentBuilderFactoryTest extends LireTestCase {
 	
     @SuppressWarnings("unused")
 	private void testBuilder(DocumentBuilder builder) {

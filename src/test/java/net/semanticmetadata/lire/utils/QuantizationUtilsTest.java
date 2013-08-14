@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.utils;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -54,7 +54,7 @@ import java.io.IOException;
  * Time: 16:50
  * To change this template use File | Settings | File Templates.
  */
-public class QuantizationUtilsTest extends TestCase {
+public class QuantizationUtilsTest extends LireTestCase {
     public static int[][] rgbPalette64 = new int[][]{
             new int[]{0, 0, 0},
             new int[]{0, 0, 85},

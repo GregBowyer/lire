@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.indexing;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.DocumentBuilder;
 import net.semanticmetadata.lire.ImageSearchHits;
 import net.semanticmetadata.lire.imageanalysis.CEDD;
@@ -75,7 +75,7 @@ import java.util.Comparator;
  * Date: 14.03.13
  * Time: 08:41
  */
-public class HashingTest extends TestCase {
+public class HashingTest extends LireTestCase {
     String queryFile = "E:\\Temp\\images1\\1\\im1.jpg";
 
     public void testSearch() throws IOException {

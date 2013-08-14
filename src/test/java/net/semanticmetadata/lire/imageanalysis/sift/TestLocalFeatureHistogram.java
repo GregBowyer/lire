@@ -38,7 +38,7 @@
  */
 package net.semanticmetadata.lire.imageanalysis.sift;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.DocumentBuilderFactory;
 import net.semanticmetadata.lire.clustering.Cluster;
 import net.semanticmetadata.lire.clustering.KMeans;
@@ -67,7 +67,7 @@ import java.util.ArrayList;
  *
  * @author Mathias Lux, mathias@juggle.at
  */
-public class TestLocalFeatureHistogram extends TestCase {
+public class TestLocalFeatureHistogram extends LireTestCase {
     private Extractor extractor;
     private String indexPath = "wang-index";
     private String testExtensive = "C:\\Temp\\flickrphotos\\flickrphotos";

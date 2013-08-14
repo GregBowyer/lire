@@ -37,7 +37,7 @@ package net.semanticmetadata.lire;/*
  *     http://www.semanticmetadata.net/lire, http://www.lire-project.net
  */
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.imageanalysis.*;
 import net.semanticmetadata.lire.impl.BitSamplingImageSearcher;
 import net.semanticmetadata.lire.impl.GenericFastImageSearcher;
@@ -58,7 +58,7 @@ import java.util.Iterator;
  * Date: 01.08.2013
  * Time: 13:53
  */
-public class ClassifierTest extends TestCase {
+public class ClassifierTest extends LireTestCase {
 
 
     public void testClassify() throws IOException {

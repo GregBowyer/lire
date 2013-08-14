@@ -41,7 +41,6 @@
 
 package net.semanticmetadata.lire.benchmarking;
 
-import junit.framework.TestCase;
 import net.semanticmetadata.lire.DocumentBuilder;
 import net.semanticmetadata.lire.ImageSearchHits;
 import net.semanticmetadata.lire.imageanalysis.bovw.SurfFeatureHistogramBuilder;
@@ -74,7 +73,7 @@ import java.util.Set;
  * Date: 01.08.12
  * Time: 17:41
  */
-public class TestNister extends TestCase {
+public class TestNister extends LireBenchmark {
     public static double[] df;
     public static double avgDocLength;
     int[] tests = {1091, 8279, 24, 9064, 4092, 7403, 1894, 3558, 4642, 8290, 2948, 7079, 4382, 4900, 3575, 528, 7908, 2494, 4360, 8552, 776, 10106, 8195, 4477, 7833, 4010, 7599, 8998, 8448, 3204, 7123, 6374, 92, 8457, 7343, 5175, 2243, 6605, 3492, 5398, 9587, 4441, 8480, 6347, 8114, 3513, 6609, 7848, 7769, 5346, 2850, 6913, 9623, 4531, 6110, 8005, 6183, 3144, 2592, 6455, 9918, 3138, 6162, 3918, 1251, 9181, 9175, 5333, 9632, 5573, 9877, 8060, 6117, 8443, 5337, 9685, 474, 6744, 8347, 6720, 5538, 2389, 3898, 8885, 3344, 6026, 4338, 3078, 4336, 235, 704, 7426, 1193, 1946, 2625, 7724, 9942, 3390, 5103, 8609};

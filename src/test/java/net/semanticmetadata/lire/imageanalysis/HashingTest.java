@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.utils.ImageUtils;
 
 import javax.imageio.ImageIO;
@@ -55,7 +55,7 @@ import java.util.LinkedList;
  * Time: 16:32
  * To change this template use File | Settings | File Templates.
  */
-public class HashingTest extends TestCase {
+public class HashingTest extends LireTestCase {
     private float[][] hashPlanes;
     int bits = 16, dimensions = 256;
     private int numFunctionBundles = 10;

@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.lucene;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.DocumentBuilder;
 import net.semanticmetadata.lire.DocumentBuilderFactory;
 import net.semanticmetadata.lire.ImageSearchHits;
@@ -86,7 +86,7 @@ import java.util.Iterator;
  * @author Mathias Lux mathias@juggle.at
  *
  */
-public class TestRerankTextSearch extends TestCase {
+public class TestRerankTextSearch extends LireTestCase {
     // that's where we put the index for testing:
     private File testIndex = new File("textindextest");
 

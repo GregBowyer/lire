@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.invertedlist;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
@@ -50,7 +50,7 @@ import java.util.StringTokenizer;
 
 //import org.apache.lucene.index.Norm;
 
-public class GeneralInvertedListTest extends TestCase {
+public class GeneralInvertedListTest extends LireTestCase {
     private String indexPath = "./test-index-cedd-flickr";
     private int numRefObjsReferenced = 50;
     private int numRefObjs = 500;

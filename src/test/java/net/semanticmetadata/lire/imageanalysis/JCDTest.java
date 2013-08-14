@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.utils.FileUtils;
 
 import javax.imageio.ImageIO;
@@ -58,7 +58,7 @@ import java.util.Iterator;
  * @author Mathias Lux, mathias@juggle.at, 20.04.13
  */
 
-public class JCDTest extends TestCase {
+public class JCDTest extends LireTestCase {
     int bytes = 0, sum = 0;
 
     public void testExtraction() throws IOException {

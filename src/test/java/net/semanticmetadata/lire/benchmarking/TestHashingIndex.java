@@ -41,7 +41,6 @@
 
 package net.semanticmetadata.lire.benchmarking;
 
-import junit.framework.TestCase;
 import net.semanticmetadata.lire.DocumentBuilder;
 import net.semanticmetadata.lire.ImageSearchHits;
 import net.semanticmetadata.lire.ImageSearcher;
@@ -73,7 +72,7 @@ import java.util.Iterator;
  * @author Mathias Lux, mathias@juggle.at, 01.06.13
  */
 
-public class TestHashingIndex extends TestCase {
+public class TestHashingIndex extends LireBenchmark {
     private String dataSetImageList = "D:\\DataSets\\Flickrphotos\\imageList.txt";
     private String dataSetDataOut = "D:\\DataSets\\Flickrphotos\\imageList.out";
     private String testIndex = "C:/Temp/idx-test-hashing";

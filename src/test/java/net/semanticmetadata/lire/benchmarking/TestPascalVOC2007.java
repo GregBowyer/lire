@@ -39,7 +39,6 @@
 
 package net.semanticmetadata.lire.benchmarking;
 
-import junit.framework.TestCase;
 import net.semanticmetadata.lire.DocumentBuilder;
 import net.semanticmetadata.lire.DocumentBuilderFactory;
 import net.semanticmetadata.lire.ImageSearcher;
@@ -60,7 +59,7 @@ import java.util.ArrayList;
  * which is available at http://pascallin.ecs.soton.ac.uk/challenges/VOC/voc2007/index.html#testdata
  * Created: 11.05.2011 09:04:25
  */
-public class TestPascalVOC2007 extends TestCase {
+public class TestPascalVOC2007 extends LireBenchmark {
     private ChainedDocumentBuilder builder;
     private String testExtensive = "VOC2007/JPEGImages";
     private String indexPath = "./pascal-map-test";

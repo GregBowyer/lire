@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.indexing;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.*;
 import net.semanticmetadata.lire.imageanalysis.CEDD;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
@@ -70,7 +70,7 @@ import java.util.*;
  * @author Mathias Lux, mathias@juggle.at
  *         Created: 04.06.12, 14:19
  */
-public class LocalitySensitiveHashingTest extends TestCase {
+public class LocalitySensitiveHashingTest extends LireTestCase {
     String testExtensive = "./testdata/wang-1000";
     private String indexPath = "index-hashed";
     private int numImagesEval = 50;

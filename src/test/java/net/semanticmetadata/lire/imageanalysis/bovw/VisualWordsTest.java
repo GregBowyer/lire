@@ -39,7 +39,7 @@
 
 package net.semanticmetadata.lire.imageanalysis.bovw;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.DocumentBuilder;
 import net.semanticmetadata.lire.ImageSearchHits;
 import net.semanticmetadata.lire.impl.SurfDocumentBuilder;
@@ -59,7 +59,7 @@ import java.io.IOException;
  *         Date: 04.11.11
  *         Time: 16:18
  */
-public class VisualWordsTest extends TestCase {
+public class VisualWordsTest extends LireTestCase {
     public void testCreateQuery() throws IOException {
         IndexReader reader = DirectoryReader.open(FSDirectory.open(new File("./index-mirflickr")));
         BufferedImage image = ImageIO.read(new File("./wang-1000/0.jpg"));

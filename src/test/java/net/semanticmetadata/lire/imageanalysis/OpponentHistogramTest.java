@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.imageanalysis;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.DocumentBuilderFactory;
 import net.semanticmetadata.lire.ImageSearcher;
 import net.semanticmetadata.lire.ImageSearcherFactory;
@@ -71,7 +71,7 @@ import java.util.Arrays;
  * Date: 18.12.12
  * Time: 13:17
  */
-public class OpponentHistogramTest extends TestCase {
+public class OpponentHistogramTest extends LireTestCase {
     public void testExtraction() throws IOException {
         BufferedImage img = ImageIO.read(new FileInputStream("src\\test\\resources\\images\\test_image.png"));
         OpponentHistogram oh = new OpponentHistogram();

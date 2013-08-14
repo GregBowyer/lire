@@ -41,7 +41,7 @@
 
 package net.semanticmetadata.lire.indexing;
 
-import junit.framework.TestCase;
+import net.semanticmetadata.lire.LireTestCase;
 import net.semanticmetadata.lire.DocumentBuilder;
 import net.semanticmetadata.lire.ImageSearcher;
 import net.semanticmetadata.lire.ImageSearcherFactory;
@@ -59,7 +59,7 @@ import java.io.*;
  * Date: 14.05.2009
  * Time: 15:07:43
  */
-public class MetricSpacesTest extends TestCase {
+public class MetricSpacesTest extends LireTestCase {
     String indexPath = "./test-index-cedd-flickr";
     // String imagePath = "";
 
