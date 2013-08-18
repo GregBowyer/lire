@@ -290,7 +290,7 @@ public class TestGroundTruth extends LireBenchmark {
         File f = new File(BitSampling.hashFunctionsFileName);
         if (f.exists()) f.delete();
 //                BitSampling.setNumFunctionBundles(80);
-        BitSampling.generateHashFunctions();
+        BitSampling.generateHashFunctions(new File(System.getProperty("user.dir")));
         LocalitySensitiveHashing.generateHashFunctions();
         String[] args = new String[]{"-c", "C:\\Temp\\Eval-WIPO\\2index.txt", "-l", indexPath};
         HashingIndexor.main(args);

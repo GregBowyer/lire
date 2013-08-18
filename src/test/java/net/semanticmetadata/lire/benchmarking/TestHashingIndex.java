@@ -160,7 +160,7 @@ public class TestHashingIndex extends LireBenchmark {
         if (file.exists()) file.delete();
         file = new File(hashesFileL);
         if (file.exists()) file.delete();
-        BitSampling.generateHashFunctions(hashesFile);
+        BitSampling.generateHashFunctions(file);
         LocalitySensitiveHashing.generateHashFunctions(hashesFileL);
 //        HashingIndexor hi = new HashingIndexor();
         ProximityHashingIndexor hi = new ProximityHashingIndexor();

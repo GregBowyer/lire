@@ -45,6 +45,11 @@ import java.io.*;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import com.google.common.io.Closeables;
+import com.google.common.io.Resources;
+
+import static java.lang.Thread.currentThread;
+
 /**
  * Provides a simple way to hashing. It's bit sampling and can be put into the
  * locality sensitive hashing family of hashing functions.
@@ -83,12 +88,14 @@ public class BitSampling {
      *
      * @param args
      */
-    public static void main(String[] args) {
-        try {
-            generateHashFunctions();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws Exception{
+        if (args.length > 2 || args.length < 1) {
+            System.err.println("Usage <BitSampling> <output-dir> <?output-name>");
+            System.exit(1);
         }
+
+        File toWrite = (args.length == 2) ? new File(args[0], args[1]) : new File(args[0], hashFunctionsFileName);
+        generateHashFunctions(toWrite);
     }
 
     /**
@@ -96,30 +103,19 @@ public class BitSampling {
      *
      * @throws IOException
      */
-    public static void generateHashFunctions() throws IOException {
-        File hashFile = new File(hashFunctionsFileName);
-        if (!hashFile.exists()) {
-            ObjectOutputStream oos = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream(hashFile)));
-            oos.writeInt(bits);
-            oos.writeInt(dimensions);
-            oos.writeInt(numFunctionBundles);
-            for (int c = 0; c < numFunctionBundles; c++) {
-                for (int i = 0; i < bits; i++) {
-                    for (int j = 0; j < dimensions; j++) {
-                        oos.writeFloat((float) (Math.random() * w - w / 2));
-                    }
-                }
-            }
-            oos.close();
-        } else {
-            System.err.println("Hashes could not be written: " + hashFunctionsFileName + " already exists");
-        }
+    public static void generateHashFunctions(File hashFile) throws IOException {
+        generateHashFunctions(new FileOutputStream(hashFile));
     }
 
-    public static void generateHashFunctions(String hashFunctionsFileName) throws IOException {
-        File hashFile = new File(hashFunctionsFileName);
-        if (!hashFile.exists()) {
-            ObjectOutputStream oos = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream(hashFile)));
+    /**
+     * Writes a file to disk to be read for hashing.
+     *
+     * @throws IOException
+     */
+    public static void generateHashFunctions(OutputStream input) throws IOException {
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(new GZIPOutputStream(input));
             oos.writeInt(bits);
             oos.writeInt(dimensions);
             oos.writeInt(numFunctionBundles);
@@ -130,9 +126,8 @@ public class BitSampling {
                     }
                 }
             }
-            oos.close();
-        } else {
-            System.err.println("Hashes could not be written: " + hashFunctionsFileName + " already exists");
+        } finally {
+            Closeables.close(oos, false);
         }
     }
 
@@ -145,16 +140,15 @@ public class BitSampling {
      * @throws IOException
      */
     public static double[][][] readHashFunctions() throws IOException {
-        ObjectInputStream ois = new ObjectInputStream(new GZIPInputStream(BitSampling.class.getResourceAsStream(hashFunctionsFileName)));
+        InputStream resourceAsStream = currentThread().getContextClassLoader().getResourceAsStream(hashFunctionsFileName);
+        ObjectInputStream ois = new ObjectInputStream(new GZIPInputStream(resourceAsStream));
         int bits = ois.readInt();
         int dimensions = ois.readInt();
         int numFunctionBundles = ois.readInt();
 
         double[][][] hashFunctions = new double[numFunctionBundles][bits][dimensions];
-        for (int i = 0; i < hashFunctions.length; i++) {
-            double[][] functionBundle = hashFunctions[i];
-            for (int j = 0; j < functionBundle.length; j++) {
-                double[] bitFunctions = functionBundle[j];
+        for (double[][] functionBundle : hashFunctions) {
+            for (double[] bitFunctions : functionBundle) {
                 for (int k = 0; k < bitFunctions.length; k++) {
                     bitFunctions[k] = (double) ois.readFloat();
                 }
@@ -179,10 +173,8 @@ public class BitSampling {
         int numFunctionBundles = ois.readInt();
 
         double[][][] hashFunctions = new double[numFunctionBundles][bits][dimensions];
-        for (int i = 0; i < hashFunctions.length; i++) {
-            double[][] functionBundle = hashFunctions[i];
-            for (int j = 0; j < functionBundle.length; j++) {
-                double[] bitFunctions = functionBundle[j];
+        for (double[][] functionBundle : hashFunctions) {
+            for (double[] bitFunctions : functionBundle) {
                 for (int k = 0; k < bitFunctions.length; k++) {
                     bitFunctions[k] = ois.readFloat();
                 }

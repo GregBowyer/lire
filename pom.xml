@@ -102,6 +102,12 @@
     </dependency>
 
     <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>14.0.1</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.googlecode.javacv</groupId>
       <artifactId>javacv</artifactId>
       <version>${javacv.version}</version>
@@ -215,6 +221,26 @@
             <phase>deploy</phase>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <phase>prepare-package</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>net.semanticmetadata.lire.indexing.hashing.BitSampling</mainClass>
+          <arguments>
+            <argument>${project.build.directory}/classes</argument>
+          </arguments>
+        </configuration>
       </plugin>
     </plugins>
 
