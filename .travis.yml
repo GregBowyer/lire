@@ -1,8 +1,17 @@
 language: java
+
 jdk:
   - openjdk7
+
+before_install:
+  #- sudo apt-get install -qq build-essential
+  - sudo apt-get install -qq libavformat-dev
+  - sudo apt-get install -qq ffmpeg
+  - sudo apt-get install -qq libopencv-dev
+
 script:
   mvn clean install deploy
+
 env:
   global:
     secure: "gLAqz//A74rVbpONBCvnoWyUKaTVlavby20Si1SrSJfaOyDt1lPBLOCwJdBzl5qDkNUMHeHV0p7M1B2Pp6WbtjparVF9XkFdgCeOPQfJ3jw59iCIGQuTTz60wOAHArXYoAO7ZNBb9lk4TrlVIqE4n1xh+jtrGqmYZpot52p/xtU="
