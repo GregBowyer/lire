@@ -299,11 +299,14 @@
   <repositories>
     <repository>
       <id>stupid-maven-repo</id>
-      <url>https://raw.github.com/GregBowyer/stupid-maven-repo/</url>
+      <url>https://raw.github.com/GregBowyer/stupid-maven-repo/master/snapshots</url>
       <snapshots>
         <enabled>true</enabled>
         <updatePolicy>always</updatePolicy>
       </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
     </repository>
     <repository>
       <id>javacv</id>
