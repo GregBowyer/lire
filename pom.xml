@@ -65,6 +65,9 @@
     <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
     <build.timestamp>${maven.build.timestamp}</build.timestamp>
     <build.number />
+
+    <javacv.version>0.5</javacv.version>
+    <platform.name>${os.name}-${os.arch}</platform.name>
   </properties>
 
   <prerequisites>
@@ -101,7 +104,14 @@
     <dependency>
       <groupId>com.googlecode.javacv</groupId>
       <artifactId>javacv</artifactId>
-      <version>0.5</version>
+      <version>${javacv.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.googlecode.javacv</groupId>
+      <artifactId>javacv</artifactId>
+      <version>${javacv.version}</version>
+      <classifier>${platform.name}</classifier>
     </dependency>
 
     <dependency>
@@ -232,6 +242,58 @@
         </plugins>
       </build>
     </profile>
+
+    <!-- This ugly block allows maven to pull down the correct JNI bridge for openCV {{{ -->
+    <!-- Poor mans OS detection {{{ -->
+    <profile>
+      <id>linux</id>
+      <activation> <os> <name>linux</name> </os> </activation>
+      <properties> <os.name>linux</os.name> </properties>
+    </profile>
+    <profile>
+      <id>macosx</id>
+      <activation> <os> <name>mac os x</name> </os> </activation>
+      <properties> <os.name>macosx</os.name> </properties>
+    </profile>
+    <profile>
+      <id>windows</id>
+      <activation> <os> <family>windows</family> </os> </activation>
+      <properties> <os.name>windows</os.name> </properties>
+    </profile>
+    <!-- }}} -->
+    <!-- Poor mans CPU detection {{{ -->
+    <profile>
+      <id>i386</id>
+      <activation> <os> <arch>i386</arch> </os> </activation>
+      <properties> <os.arch>x86</os.arch> </properties>
+    </profile>
+    <profile>
+      <id>i486</id>
+      <activation> <os> <arch>i486</arch> </os> </activation>
+      <properties> <os.arch>x86</os.arch> </properties>
+    </profile>
+    <profile>
+      <id>i586</id>
+      <activation> <os> <arch>i586</arch> </os> </activation>
+      <properties> <os.arch>x86</os.arch> </properties>
+    </profile>
+    <profile>
+      <id>i686</id>
+      <activation> <os> <arch>i686</arch> </os> </activation>
+      <properties> <os.arch>x86</os.arch> </properties>
+    </profile>
+    <profile>
+      <id>amd64</id>
+      <activation> <os> <arch>amd64</arch> </os> </activation>
+      <properties> <os.arch>x86_64</os.arch> </properties>
+    </profile>
+    <profile>
+      <id>x86-64</id>
+      <activation> <os> <arch>x86-64</arch> </os> </activation>
+      <properties> <os.arch>x86_64</os.arch> </properties>
+    </profile>
+    <!-- }}} -->
+    <!-- }}} -->
   </profiles>
 
   <repositories>
@@ -255,5 +317,6 @@
       </releases>
     </repository>
   </repositories>
+
 </project>
-<!-- vim: set et fenc=utf-8 ff=unix sts=2 sw=2 ts=2 : -->
+<!-- vim: set et fenc=utf-8 ff=unix sts=2 sw=2 ts=2 foldmethod=marker: -->
