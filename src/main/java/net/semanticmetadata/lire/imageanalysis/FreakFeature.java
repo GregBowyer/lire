@@ -49,7 +49,7 @@ public class FreakFeature extends LocalFeature
         if (freakDescriptor == null || freakDescriptor.length != length)
             freakDescriptor = new byte[length];
         System.arraycopy(in, offset, freakDescriptor, 0, length);
-        descriptor = bit2doubleArray(descriptor, in, offset, length);
+        descriptor = ubyte2doubleArray(descriptor, in, offset, length);
     }
 
 }
